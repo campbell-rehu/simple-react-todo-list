@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>Simple Todo List App in React</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react.min.js"></script>        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react-dom.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+   </head>
+    <body>
+        <div id="container"></div>
+        <script type="text/babel">
+            var TodoItems = React.createClass({
+                render: function() {
+                    var todoEntries = this.props.entries;
+                    var listItems = todoEntries.map(item => {
+                        return <li key={item.key}>{item.text}</li>;
+                    });
+                    return (
+                        <ul class="todoList">
+                            {listItems}
+                        </ul>
+                    );
+                }
+            });
+            var TodoList = React.createClass({
+                getInitialState: function() {
+                    return {
+                        items: []
+                    }
+                },
+                addItem: function(e) {
+                    var itemsArray = this.state.items;
+                    itemsArray.push(
+                        {
+                            text: this._inputElement.value,
+                            key: Date.now()
+                        }
+                    );
+                    this.setState({
+                        items: itemsArray
+                    });
+
+                    this._inputElement.value = "";
+                    
+                    e.preventDefault();
+
+                    console.log(this.state.items);
+                },
+                render: function() {
+                    return (
+                        <div className="todoListMain">
+                            <div className="header">
+                                <form onSubmit={this.addItem}>
+                                    <input placeholder="enter task" ref={(a) => this._inputElement = a} />
+                                    <button type="submit">add</button>
+                                </form>
+                            </div>
+                            <TodoItems entries={this.state.items} />
+                        </div>
+                    );
+                }
+            });
+
+            ReactDOM.render(
+                <TodoList />, document.getElementById('container')
+            );
+        </script>
+    </body>
+</html>
