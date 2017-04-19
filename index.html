@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="styles.css">
    </head>
     <body>
+        <h1>Simple Todo List in React</h1>
         <div id="container"></div>
         <script type="text/babel">
             var TodoItems = React.createClass({
@@ -16,7 +17,7 @@
                         return <li key={item.key}>{item.text}</li>;
                     });
                     return (
-                        <ul class="todoList">
+                        <ul className="list">
                             {listItems}
                         </ul>
                     );
@@ -43,8 +44,6 @@
                     this._inputElement.value = "";
                     
                     e.preventDefault();
-
-                    console.log(this.state.items);
                 },
                 render: function() {
                     return (
@@ -55,7 +54,7 @@
                                     <button type="submit">add</button>
                                 </form>
                             </div>
-                            <TodoItems entries={this.state.items} />
+                            <TodoItems entries={this.state.items}/>
                         </div>
                     );
                 }
